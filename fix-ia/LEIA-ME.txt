@@ -1,0 +1,16 @@
+FIX.IA - site da pulseira para atletas
+
+COMO ABRIR
+1. Extraia o arquivo .zip.
+2. Dê dois cliques em index.html. Ele abre no navegador.
+(Com internet, as fontes carregam do Google Fonts. Sem internet, o site usa fontes do sistema.)
+
+ESTRUTURA
+index.html      páginas e textos
+css/style.css   todo o visual
+js/app.js       simulação dos batimentos, treino completo e interações
+js/config.js    data de lançamento e texto da data na pulseira
+assets/         ícone do site
+
+PARA TROCAR A DATA: edite js/config.js.
+Preços, especificações e garantia são valores de exemplo.

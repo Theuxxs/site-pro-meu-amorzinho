@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FIX.IA – A pulseira inteligente para atletas</title>
+<meta name="description" content="FIX.IA: pulseira inteligente para atletas com batimentos cardíacos, SpO₂, recuperação e treinador com IA.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="w">
+<div class="tp"><span class="logo">FIX<i>.</i>IA</span><span class="chip">Lançamento em <b class="cdl">--</b> · <span class="cdd">--</span></span></div>
+
+<section id="topo"><div class="card hero">
+<div><h1>Seu coração fala. A FIX.IA traduz.</h1>
+<p>Pulseira leve e sem tela distrativa, criada para atletas. Ela lê seus batimentos a cada segundo, mostra a zona de esforço e avisa quando acelerar ou recuperar.</p>
+<div class="row"><a class="btn" href="#demo">Ver ao vivo</a><a class="btn g" href="#planos">Ver planos</a></div>
+<div class="hs"><div><b>18 g</b><span>de peso</span></div><div><b>14 dias</b><span>de bateria</span></div><div><b>10 ATM</b><span>à prova d’água</span></div><div><b>1 s</b><span>por leitura</span></div></div></div>
+<svg class="band" id="band" viewBox="0 0 340 520" role="img" aria-label="Pulseira FIX.IA mostrando os batimentos em tempo real">
+<defs><linearGradient id="st" x1="0" x2="1"><stop offset="0" stop-color="#1a1615"/><stop offset=".5" stop-color="#2e2624"/><stop offset="1" stop-color="#1a1615"/></linearGradient></defs>
+<rect x="95" y="0" width="150" height="190" rx="30" fill="url(#st)"/><rect x="95" y="330" width="150" height="190" rx="30" fill="url(#st)"/>
+<g stroke="#FF5B2E" stroke-width="2" opacity=".45"><path d="M130 20v140M170 20v140M210 20v140M130 360v140M170 360v140M210 360v140"/></g>
+<rect x="55" y="130" width="230" height="260" rx="62" fill="#0a0908" stroke="#FF7A3D" stroke-width="3"/>
+<rect x="68" y="143" width="204" height="234" rx="50" fill="#000"/>
+<text x="170" y="190" text-anchor="middle" fill="#9C938C" font-family="Manrope,sans-serif" font-size="15" id="bClock">qui 29 out</text>
+<g class="beat" id="bHeart"><path d="M170 258c-26-18-40-32-40-48 0-12 9-21 20-21 8 0 15 4 20 12 5-8 12-12 20-12 11 0 20 9 20 21 0 16-14 30-40 48z" fill="#FF5B2E"/></g>
+<text x="170" y="316" text-anchor="middle" fill="#F3E9E2" font-family="Manrope,sans-serif" font-weight="800" font-size="44" id="bBpm">62</text>
+<text x="170" y="344" text-anchor="middle" fill="#9C938C" font-family="Manrope,sans-serif" font-size="14" id="bZone">Zona 1</text>
+</svg></div></section>
+
+<section id="demo">
+<div class="hd"><h2>Sinta a FIX.IA trabalhando</h2><p>Simulação ao vivo do que a pulseira entrega no seu treino.</p></div>
+<div class="card">
+<div class="top"><div class="big"><span id="bpm">62</span><small>bpm</small></div><div style="text-align:right"><span class="zn" id="zn">Zona 1</span>
+<label class="age">Idade <input type="range" id="age" min="16" max="60" value="28"> <b id="ageV">28</b> · máx. <b id="mx">192</b> bpm</label></div></div>
+<div class="modes" role="group" aria-label="Atividade"></div>
+<canvas id="ecg" aria-label="Eletrocardiograma simulado"></canvas>
+<div id="al" role="alert" hidden></div>
+<div class="zb" id="zb"></div>
+<div class="g2">
+<div class="sub"><span>Média do dia</span><div class="dv"><b id="avg">62</b> bpm</div>
+<div class="rg"><div id="hp"><svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-8-5.4-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.600-8 11-8 11z"/></svg><span id="hpv">62</span></div></div>
+<div class="rl"><span>Menor <b id="lo">62</b></span><span>Pico <b id="pk">62</b></span></div></div>
+<div class="sub"><span>Metas dos últimos 30 dias</span><div class="hm" id="hm"></div>
+<div class="lg"><span>Meta batida<i style="background:var(--pill)"></i></span><span>Parcial<i style="border:1.5px dashed #6f6761"></i></span><span>Sem treino<i style="background:#2a2725"></i></span></div></div>
+</div>
+<div class="as"><div><span class="as-k">Pontuação atlética</span><div class="as-n" id="asn">13</div><div class="dg" id="dg" aria-hidden="true"></div><p style="margin-top:12px;font-size:.8rem">Sobe a cada treino completo que você termina.</p></div>
+<ul class="as-r">
+<li><i class="ic" style="--c:#C8552B"><svg viewBox="0 0 24 24" fill="#1a0e08"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></i><span>Sono</span><b>88</b></li>
+<li><i class="ic" style="--c:#5B6030"><svg viewBox="0 0 24 24" fill="none" stroke="#141507" stroke-width="3"><circle cx="12" cy="12" r="7"/></svg></i><span>Força</span><b>77 <small>kg</small></b></li>
+<li><i class="ic" style="--c:#8E6FD0"><svg viewBox="0 0 24 24" fill="#150d26"><path d="M4 16c0-4 2-9 5-9 2 0 2 3 4 4l6 2c1.5.5 2 1 2 3H4z"/></svg></i><span>Passos</span><b id="asp">0</b></li>
+<li><i class="ic" style="--c:#6FB3C9"><svg viewBox="0 0 24 24" fill="#08202a"><path d="M12 21s-8-5.4-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.6-8 11-8 11z"/></svg></i><span>VO₂ máx</span><b>52</b></li>
+</ul></div>
+<div class="tiles">
+<div class="tile"><span>Oxigênio (SpO₂)</span><b><span id="o2">98</span><em>%</em></b></div>
+<div class="tile"><span>Temperatura da pele</span><b><span id="tp">33,8</span><em>°C</em></b></div>
+<div class="tile"><span>Variabilidade (VFC)</span><b><span id="hv">82</span><em>ms</em></b></div>
+<div class="tile"><span>Calorias</span><b><span id="kc">0</span><em>kcal</em></b></div>
+<div class="tile"><span>Passos</span><b><span id="st2">0</span></b></div>
+<div class="tile"><span>Distância</span><b><span id="ds">0,00</span><em>km</em></b></div></div>
+<div class="coach"><i>IA</i><div><b>Treinador FIX.IA</b><p id="co" style="margin-top:4px"></p></div><button class="btn" id="auto">Treino completo</button></div>
+<div id="sm" hidden></div>
+</div></section>
+
+<section id="app"><div class="blue">
+<div><h2>Tudo da pulseira, no seu bolso</h2><p>O app mostra a semana de treino, a recuperação e o sono, com a mesma leitura que você vê no pulso.</p></div>
+<div class="ph">
+<div id="v1"><div class="m2"><div>Treinos na semana<b>5</b></div><div>Tempo médio<b>48 min</b></div></div>
+<h4>Minutos de treino</h4><div class="n">412<s>+12%</s></div><div class="bars" id="bars"></div>
+<div class="lgd"><span style="--c:#2f6fe4">Corrida<b>168</b></span><span style="--c:#6aa0f2">Ciclismo<b>96</b></span><span style="--c:#b7cff6">Musculação<b>74</b></span><span style="--c:#e3e5ea">Outros<b>74</b></span></div></div>
+<div id="v2" hidden><div class="m2"><div>Nota do sono<b>86</b></div><div>Recuperação<b>91%</b></div></div>
+<h4>Sono de ontem</h4><div class="n">7h 42min</div>
+<div class="sl"><div><span style="width:70px">Profundo</span><i style="--c:#2f6fe4;width:21%"></i>1h 38</div><div><span style="width:70px">Leve</span><i style="--c:#6aa0f2;width:50%"></i>3h 52</div><div><span style="width:70px">REM</span><i style="--c:#b7cff6;width:25%"></i>1h 54</div><div><span style="width:70px">Acordado</span><i style="--c:#e3e5ea;width:6%"></i>18 min</div></div></div>
+<div class="dock2"><div class="pn"><button class="on" data-v="v1">Resumo</button><button data-v="v2">Sono</button></div><span class="pl2">+</span></div>
+</div></div></section>
+
+<section id="como"><div class="hd"><h2>Como a FIX.IA transforma pulso em decisão</h2><p>Três etapas, a cada segundo do seu treino.</p></div>
+<div class="card"><div class="st3">
+<div><b>Etapa 1</b><h3>Mede</h3><p>O sensor óptico lê pulso, oxigênio e temperatura da pele, enquanto o acelerômetro registra cada movimento do braço.</p></div>
+<div><b>Etapa 2</b><h3>Interpreta</h3><p>A IA compara com o seu histórico, filtra o ruído do movimento e calcula zonas, variabilidade e recuperação.</p></div>
+<div><b>Etapa 3</b><h3>Orienta</h3><p>A pulseira vibra na hora certa e o app mostra o que fazer: acelerar, manter o ritmo ou descansar.</p></div>
+</div></div></section>
+<section id="recursos"><div class="hd"><h2>Cada sensor tem um motivo</h2><p>Toque em “Saiba mais” para ver o detalhe técnico.</p></div><div class="pg"><article class="pcard dk"><div class="vis v1"><i class="o a"></i><i class="o b"></i><i class="o c"></i></div><h3>Batimentos contínuos</h3><p class="mo">Leitura óptica a cada segundo, no repouso e no sprint, sem perder o sinal com o suor.</p><button class="mb" aria-expanded="false">Saiba mais</button><div class="more" hidden><ul><li>Sensor PPG com LEDs verde, vermelho e infravermelho</li><li>Faixa de medição de 30 a 220 bpm</li><li>Acelerômetro de 3 eixos filtra o movimento do braço</li><li>Uma leitura por segundo durante o treino</li></ul></div></article><article class="pcard wh"><div class="vis v2"><i class="o a"></i><i class="o b"></i><i class="o c"></i></div><h3>Oxigênio e temperatura</h3><p class="mo">SpO₂ e temperatura da pele durante o treino e o sono, inclusive em altitude.</p><button class="mb" aria-expanded="false">Saiba mais</button><div class="more" hidden><ul><li>SpO₂ por luz vermelha e infravermelha, de 70 a 100%</li><li>Temperatura da pele com resolução de 0,1 °C</li><li>Leitura contínua durante o sono</li><li>Aviso quando a saturação cai abaixo do seu normal</li></ul></div></article><article class="pcard dk"><div class="vis v3"><i class="o a"></i><i class="o b"></i><i class="o c"></i></div><h3>Recuperação diária</h3><p class="mo">Cruza variabilidade cardíaca, sono e carga de treino para dizer se hoje é dia de apertar ou de soltar.</p><button class="mb" aria-expanded="false">Saiba mais</button><div class="more" hidden><ul><li>VFC medida durante o sono</li><li>Compara com a média dos últimos 7 dias</li><li>Nota de 0 a 100 todas as manhãs</li><li>Sugere treino leve, moderado ou pesado</li></ul></div></article><article class="pcard wh"><div class="vis v4"><i class="o a"></i><i class="o b"></i><i class="o c"></i></div><h3>Alerta de sobrecarga</h3><p class="mo">A pulseira vibra quando você passa tempo demais na zona 5, antes que o esforço vire lesão.</p><button class="mb" aria-expanded="false">Saiba mais</button><div class="more" hidden><ul><li>Vibração após 5 s seguidos na zona 5 (ajustável)</li><li>Zonas calculadas pela sua idade</li><li>Aviso de frequência fora do normal no repouso</li><li>Histórico de picos no app</li></ul></div></article><article class="pcard dk"><div class="vis v5"><i class="o a"></i><i class="o b"></i><i class="o c"></i></div><h3>GPS, ritmo e distância</h3><p class="mo">Pace por quilômetro, voltas automáticas e trajeto salvo, para treino de rua e de pista.</p><button class="mb" aria-expanded="false">Saiba mais</button><div class="more" hidden><ul><li>GPS, GLONASS e Galileo</li><li>Pace por quilômetro e voltas automáticas</li><li>Trajeto salvo e exportável</li><li>Modo economia estende o tempo de uso</li></ul></div></article><article class="pcard wh"><div class="vis v6"><i class="o a"></i><i class="o b"></i><i class="o c"></i></div><h3>Treinador com IA</h3><p class="mo">Aprende o seu padrão e sugere o próximo treino, a pausa certa e a hidratação.</p><button class="mb" aria-expanded="false">Saiba mais</button><div class="more" hidden><ul><li>Aprende o seu padrão em cerca de 2 semanas</li><li>Plano semanal ajustado pela recuperação</li><li>Lembretes de hidratação e de pausa</li><li>Você controla o que é compartilhado</li></ul></div></article></div></section>
+
+<section id="comp"><div class="card"><h2>FIX.IA contra um relógio comum</h2>
+<div class="cmp"><div class="h">Item</div><div class="h">FIX.IA</div><div class="h">Relógio típico</div>
+<div>Peso</div><div class="f">18 g</div><div class="cm">40 a 50 g</div>
+<div>Bateria</div><div class="f">Até 14 dias</div><div class="cm">1 a 2 dias</div>
+<div>Água</div><div class="f">10 ATM</div><div class="cm">5 ATM</div>
+<div>Foco</div><div class="f">Esforço e recuperação</div><div class="cm">Notificações e apps</div>
+<div>Treinador com IA</div><div class="f">Incluso</div><div class="cm">Em geral pago à parte</div></div>
+</div></section>
+
+<section id="zonas"><div class="wcard"><h2>Zonas de esforço</h2><p>As faixas mudam com a idade que você escolhe na demonstração.</p><div class="tbw"><table class="tb"><thead><tr><th>Zona</th><th>Faixa</th><th>Para que serve</th><th>Sensação</th></tr></thead><tbody><tr><td><i class="zd" style="--c:var(--z1)"></i>Zona 1</td><td class="rng" data-a=".5" data-b=".6"></td><td>Recuperação ativa</td><td>Dá para conversar normalmente</td></tr><tr><td><i class="zd" style="--c:var(--z2)"></i>Zona 2</td><td class="rng" data-a=".6" data-b=".7"></td><td>Base aeróbica</td><td>Confortável, respiração tranquila</td></tr><tr><td><i class="zd" style="--c:var(--z3)"></i>Zona 3</td><td class="rng" data-a=".7" data-b=".8"></td><td>Resistência</td><td>Respiração mais forte, frases médias</td></tr><tr><td><i class="zd" style="--c:var(--z4)"></i>Zona 4</td><td class="rng" data-a=".8" data-b=".9"></td><td>Limiar</td><td>Esforço duro, só frases curtas</td></tr><tr><td><i class="zd" style="--c:var(--z5)"></i>Zona 5</td><td class="rng" data-a=".9" data-b="1"></td><td>Potência máxima</td><td>Só se sustenta por poucos minutos</td></tr></tbody></table></div></div></section>
+<section id="ficha"><div class="card"><h2>Ficha técnica</h2><dl class="spc"><div><dt>Sensor cardíaco</dt><dd>Óptico PPG, 3 LEDs</dd></div><div><dt>Oxigênio (SpO₂)</dt><dd>De 70 a 100%</dd></div><div><dt>Temperatura</dt><dd>Pele, resolução de 0,1 °C</dd></div><div><dt>Movimento</dt><dd>Acelerômetro e giroscópio de 3 eixos</dd></div><div><dt>Localização</dt><dd>GPS, GLONASS e Galileo</dd></div><div><dt>Conexão</dt><dd>Bluetooth 5.3 e ANT+</dd></div><div><dt>Bateria</dt><dd>Até 14 dias, carga em 90 min</dd></div><div><dt>Resistência à água</dt><dd>10 ATM, até 100 m</dd></div><div><dt>Peso</dt><dd>18 g</dd></div><div><dt>Materiais</dt><dd>Silicone médico e fibra reforçada</dd></div><div><dt>Memória</dt><dd>Até 30 treinos sem o celular</dd></div><div><dt>Compatível com</dt><dd>Android e iOS</dd></div></dl></div></section>
+<section id="planos"><div class="hd"><h2>Escolha como você treina</h2><p>Preços de exemplo para o lançamento.</p></div>
+<div class="pl">
+<div class="card pc"><h3>FIX.IA Base</h3><div class="pr">R$ 349<small> à vista</small></div><ul><li>Batimentos e zonas</li><li>SpO₂ e temperatura</li><li>Passos, calorias e sono</li></ul><a class="btn g" href="#reserva">Quero a Base</a></div>
+<div class="card pc hot"><h3>FIX.IA Pro</h3><div class="pr">R$ 549<small> à vista</small></div><ul><li>Tudo da Base</li><li>GPS e pace</li><li>Recuperação pela VFC</li><li>Treinador com IA</li></ul><a class="btn" href="#reserva">Quero a Pro</a></div>
+<div class="card pc"><h3>FIX.IA Team</h3><div class="pr">Sob consulta</div><ul><li>Pacotes para clubes</li><li>Painel do treinador</li><li>Alertas em tempo real</li></ul><a class="btn g" href="#reserva">Falar com a equipe</a></div>
+</div></section>
+
+<section id="faq"><div class="hd"><h2>Perguntas frequentes</h2></div>
+<details><summary>Posso nadar com a pulseira?</summary><p>Sim. Ela resiste a 10 ATM, até 100 m de profundidade, e tem modo natação.</p></details>
+<details><summary>Funciona com Android e iOS?</summary><p>Funciona com os dois, por Bluetooth 5.3, e também conecta a sensores via ANT+.</p></details>
+<details><summary>Quanto dura a bateria?</summary><p>Até 14 dias em uso normal. Com GPS ligado o tempo cai, mas cobre uma maratona com folga.</p></details>
+<details><summary>Os dados substituem exame médico?</summary><p>Não. A FIX.IA acompanha seu desempenho esportivo e não faz diagnóstico.</p></details>
+<details><summary>Tem garantia?</summary><p>Prevista de 12 meses contra defeitos de fabricação.</p></details>
+</section>
+
+<section id="reserva"><div class="card cta"><h2>Seja um dos primeiros a treinar com a FIX.IA</h2>
+<p>Entre na lista de espera e receba o aviso de lançamento.</p><div class="cdb"><span class="cdl">--</span> · <span class="cdd">--</span></div>
+<div class="f"><input type="email" id="em" placeholder="seu@email.com" aria-label="Seu e-mail"><button class="btn" id="go">Entrar na lista</button></div><div id="ok" role="status"></div></div></section>
+<footer><b>FIX.IA</b><p>Valores desta página são simulados e de exemplo. A FIX.IA é uma pulseira de acompanhamento esportivo e não substitui diagnóstico ou orientação médica.</p></footer>
+</div>
+
+<div class="dock"><nav><a href="#topo" data-s="topo" class="on">Início</a><a href="#demo" data-s="demo">Ao vivo</a><a href="#app" data-s="app">App</a><a href="#planos" data-s="planos">Planos</a></nav><a class="plus" href="#reserva" aria-label="Reservar a minha">+</a></div>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
